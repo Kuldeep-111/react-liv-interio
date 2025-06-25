@@ -1,4 +1,5 @@
 // components/CustomQuillEditor.jsx
+import { useRef } from 'react';
 import 'react-quill/dist/quill.snow.css';
 
 const CustomQuillEditor = ({ value, onChange }) => {
