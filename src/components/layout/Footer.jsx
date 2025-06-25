@@ -200,9 +200,9 @@ const Footer = ({openModal}) => {
         </div>
 
         {/* copyright container */}
-        <div className="flex md:justify-between justify-start flex-wrap md:flex-nowrap border-t border-[var(--text-primary)] mt-[10px] pt-[10px]">
+        <div className="flex flex-col md:flex-row md:justify-between justify-start flex-wrap md:flex-nowrap border-t border-[var(--text-primary)] mt-[10px] pt-[10px]">
           <Pera className="!md:text-[13px] !text-[12px] md:text-center text-start">
-            © Copyright 2025 - LivInterio |<span className="md:inline-block block"></span> Design by GTF Technologies
+            © Copyright 2025 - LivInterio |<span className="md:inline-block"></span> Design by GTF Technologies
           </Pera>
           <div className="md:mt-[0] mt-[8px]"> 
             <Link

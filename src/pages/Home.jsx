@@ -4,7 +4,7 @@ import Hero from "../components/Hero";
 import InteriorSection from "../components/InteriorSection";
 import PhilosophySection from "../components/PhilosophySection";
 import LazyLoad from "../components/utilities/LazyLoad";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 const TeamSection = lazy(() => import("../components/TeamSection"));
 const WhatWeDoSection = lazy(() => import("../components/WhatWeDoSection"));
 const DesigningSection = lazy(() => import("../components/DesigningSection"));
@@ -29,6 +29,7 @@ const Home = ({ openModal }) => {
 
       <Hero video={true} />
       <InteriorSection onOpen={openModal} />
+      
       <PhilosophySection onOpen={openModal} />
 
       

@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import AOS from 'aos';
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import Hero from '../components/Hero';
 import WhatWeDoSection from '../components/WhatWeDoSection';
 import Section from '../components/utilities/Section';

@@ -7,7 +7,7 @@ import "swiper/css/pagination";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import { getProjectImages } from "../components/utilities/getProjectImages";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import Hero from "../components/Hero";
 import Section from "../components/utilities/Section";
 import Container from "../components/utilities/Container";

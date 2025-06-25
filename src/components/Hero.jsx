@@ -9,15 +9,14 @@ import useIsMobile from "./utilities/useIsMobile";
 const Hero = ({
   video = false,
   imageSrc = "/assets/images/about-us/desktop/banner.webp",
-  mobileSrc = "imageSrc = '/assets/images/about-us/mobile/banner.webp'",
+  mobileSrc = "/assets/images/about-us/mobile/banner.webp",
   title,
-  parent, 
+  parent,
 }) => {
   const videoRef = useRef(null);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
-  
-  
+
   const handleUnmute = () => {
     if (videoRef.current) {
       const newMuted = !isMuted;
@@ -36,17 +35,20 @@ const Hero = ({
     >
       {video ? (
         <>
-        {!isVideoLoaded && isMobile && (
-        <img
-          src="/assets/banner-mb.webp"
-          alt="Video Poster"
-          className="absolute top-0 left-0 w-full h-full object-cover"
-        />
-      )}
+          {/* Always show fallback image as background */}
+          <img
+            src="/assets/banner-mb.webp"
+            alt="Video Poster"
+            className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-500 ${
+              isVideoLoaded ? "opacity-0" : "opacity-100"
+            }`}
+          />
+          
+
+          {/* Video overlay */}
           <video
             ref={videoRef}
-            className={`absolute top-0 left-0 w-full h-full object-cover ${isVideoLoaded ? "opacity-100" : "opacity-0"}`}
-            // remove the cloudinary url later on
+            className="absolute top-0 left-0 w-full h-full object-cover"
             src={
               isMobile
                 ? "/assets/videos/Livinterio-mobile.mp4"
@@ -55,12 +57,13 @@ const Hero = ({
             autoPlay
             loop
             muted={isMuted}
-             onLoadedData={() => setIsVideoLoaded(true)}
+            onLoadedData={() => setIsVideoLoaded(true)}
             playsInline
           />
+
+          {/* Mute/unmute button */}
           <button
             className="z-51 absolute md:right-[25px] md:left-[inherit] left-[25px] bottom-[65px] md:bottom-[25px]"
-            // className="z-51 absolute md:right-[25px] md:left-[inherit] left-[25px] bottom-[65px]"
             onClick={handleUnmute}
           >
             <img
@@ -70,8 +73,7 @@ const Hero = ({
                   : "/assets/icons/volume.webp"
               }
               alt="Sound Icon"
-              width={20}
-              height={20}
+              className="w-[20px] h-[20px]"
             />
           </button>
         </>
