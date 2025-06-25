@@ -18,7 +18,7 @@ export default function Layout() {
 
   useEffect(() => {
     const openLater = () => {
-      setTimeout(() => setIsModalOpen(true), 10000);
+      setTimeout(() => setIsModalOpen(true), 1000);
     };
 
     if ('requestIdleCallback' in window) {
