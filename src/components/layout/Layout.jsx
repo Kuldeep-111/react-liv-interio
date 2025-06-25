@@ -16,17 +16,17 @@ export default function Layout() {
     location.pathname.includes(route)
   );
 
-  // useEffect(() => {
-  //   const openLater = () => {
-  //     setTimeout(() => setIsModalOpen(true), 5000);
-  //   };
+ useEffect(() => {
+  const handleScroll = () => {
+    setTimeout(() => setIsModalOpen(true), 1000);
+    window.removeEventListener('scroll', handleScroll);
+  };
 
-  //   if ('requestIdleCallback' in window) {
-  //     requestIdleCallback(openLater);
-  //   } else {
-  //     openLater();
-  //   }
-  // }, []);
+  window.addEventListener('scroll', handleScroll);
+
+  return () => window.removeEventListener('scroll', handleScroll);
+}, []);
+
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
@@ -35,13 +35,13 @@ export default function Layout() {
     <div className="relative">
       {!shouldHideLayout && <Header onOpen={openModal} />}
 
-      {/* {isModalOpen && (
+      {isModalOpen && (
         <CustomModal onClose={closeModal}>
           <Suspense fallback={<div className="p-4 text-center">Loading...</div>}>
             <LazyForm logo={true} />
           </Suspense>
         </CustomModal>
-      )} */}
+      )}
 
       <Outlet context={{ openModal }} />
 
