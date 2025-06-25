@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { toast, Toaster } from "react-hot-toast";
 import AdminHeader from "../../components/admin/AdminHeader";
@@ -13,6 +13,8 @@ import withAuth from "../../middleware/withAuth";
 const EditBlog = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const page = searchParams.get("page") || 1;
 
   const {
     register,
@@ -156,7 +158,7 @@ const EditBlog = () => {
       await axiosAdmin.post(`${ADMIN_URL}blog/${id}/update`, formData);
 
       toast.success("Blog updated successfully!");
-      navigate("/admin");
+      navigate(`/admin?page=${page}`);
     } catch (error) {
       console.error("Full error:", error);
 
