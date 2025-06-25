@@ -36,6 +36,17 @@ export const  BlogContent = ({ html }) => {
         if (domNode.name === "li") {
           return <li className="text-[13px] 2xl:text-[13px] text-center md:text-left tracking-[1px] font-montserrat text-[#000] leading-[22px] mb-[20px]">{children}</li>;
         }
+        if (domNode.name === "img") {
+  return (
+    <div className="my-[10px]">
+      <img
+        src={domNode.attribs?.src}
+        alt={domNode.attribs?.alt || ''}
+      />
+    </div>
+  );
+}
+
 
        return undefined;
       }

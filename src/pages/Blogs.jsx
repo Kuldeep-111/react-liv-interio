@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Helmet } from "react-helmet";
+import { useSearchParams } from "react-router-dom";
+
 import Hero from "../components/Hero";
 import Section from "../components/utilities/Section";
 import Container from "../components/utilities/Container";
@@ -10,55 +12,69 @@ import LatestBlog from "../components/utilities/LatestBlog";
 import BlogCard from "../components/utilities/BlogCard";
 
 const Blogs = () => {
-  const [searchTerm, setSearchTerm] = useState("");
   const [blogs, setBlogs] = useState([]);
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [totalPages, setTotalPages] = useState(1);
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const searchTerm = searchParams.get("search") || "";
+  const page = parseInt(searchParams.get("page")) || 1;
+
   const limit = 4;
-  const API_URL = import.meta.env.VITE_API_URL
-
-  const fetchBlogs = async () => {
-    try {
-      setLoading(true);
-      const endpoint = searchTerm
-        ? `${API_URL}blogsearch?search=${searchTerm}`
-        : `${API_URL}blog?page=${page}&limit=${limit}`;
-      const res = await axios.get(endpoint);
-
-      setBlogs(res.data?.data || []);
-      setTotalPages(res.data?.pagination?.pages || 1);
-    } catch (err) {
-      console.error("Failed to fetch blogs:", err);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const API_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const delayDebounce = setTimeout(() => {
+      const fetchBlogs = async () => {
+        try {
+          setLoading(true);
+          const endpoint = searchTerm
+            ? `${API_URL}blogsearch?search=${encodeURIComponent(searchTerm)}&page=${page}&limit=${limit}`
+            : `${API_URL}blog?page=${page}&limit=${limit}`;
+
+          const res = await axios.get(endpoint);
+
+          setBlogs(res.data?.data || []);
+          setTotalPages(res.data?.pagination?.pages || 1);
+        } catch (err) {
+          console.error("Failed to fetch blogs:", err);
+        } finally {
+          setLoading(false);
+        }
+      };
+
       fetchBlogs();
-    }, 300); // debounce input
+    }, 300);
 
     return () => clearTimeout(delayDebounce);
-  }, [page, searchTerm]);
+  }, [searchTerm, page]);
 
-  const handlePageChange = (newPage) => {
-    if (newPage !== page) setPage(newPage);
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    setSearchParams({ search: value, page: 1 });
   };
 
-
+  const handlePageChange = (newPage) => {
+    setSearchParams((prev) => {
+      const params = new URLSearchParams(prev);
+      params.set("page", newPage);
+      return params;
+    });
+  };
 
   return (
     <>
       <Helmet>
         <title>Liv Interio - Interior Design Excellence</title>
       </Helmet>
-      <Hero 
+
+      <Hero
         imageSrc="/assets/images/blogs/desktop/banner.webp"
         mobileSrc="/assets/images/blogs/mobile/banner.webp"
-        title="Blogs" 
+        title="Blogs"
       />
+
       <Section
         id="Blogs"
         className="overflow-hidden relative before:absolute before:bottom-0 before:left-[7.5%] before:w-[85%] before:h-[0.5px] before:bg-[var(--text-primary)]"
@@ -76,7 +92,7 @@ const Blogs = () => {
                         <div
                           key={index}
                           className={`md:col-span-6 ${
-                            index === 0 || index === 1 ? "mt-0" : "mt-[30px]"
+                            index < 2 ? "mt-0" : "mt-[30px]"
                           }`}
                         >
                           <BlogCard data={blog} />
@@ -86,6 +102,7 @@ const Blogs = () => {
                       <p className="col-span-12 text-center">No blogs found.</p>
                     )}
                   </div>
+
                   {totalPages > 1 && (
                     <Pagination
                       currentPage={page}
@@ -101,10 +118,7 @@ const Blogs = () => {
               <SearchInput
                 className="mb-[30px]"
                 value={searchTerm}
-                onChange={(e) => {
-                  setSearchTerm(e.target.value);
-                  setPage(1); // Reset to page 1 on new search
-                }}
+                onChange={handleSearchChange}
                 placeholder="Search by heading..."
               />
               <LatestBlog />
