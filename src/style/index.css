@@ -1,0 +1,119 @@
+@import "tailwindcss";
+
+
+:root {
+  --background-primary: #FFFBEF;
+  --background-secondary:#F3E9DB;
+  --text-primary:#804B1D;
+  --text-primary-hover:#976b48;
+  --foreground: #171717;
+}
+
+*{
+  font-family: 'SangBleu Sunrise', sans-serif;
+
+  /* margin: 0;
+  padding: 0; */
+  box-sizing: border-box;
+}
+body {
+  background-color: var(--background-primary);
+  color: var(--foreground);
+}
+.font-montserrat{
+  font-family: 'Montserrat', sans-serif;
+}
+
+
+ /* In your global CSS file or inside a <style jsx> block */
+.custom-lines::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: -30px;
+  transform: translateX(-50%);
+  height: 80px;
+  width: 1px;
+  border-left: 2px dashed var(--text-primary);
+  border-image: repeating-linear-gradient(var(--text-primary) 0 6px, transparent 6px 20px) 1;
+  z-index: -1;
+}
+
+.custom-lines::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  transform: translateY(-50%);
+  width: 80px;
+  height: 1px;
+  border-top: 2px dashed var(--text-primary);
+  border-image: repeating-linear-gradient(to right, var(--text-primary) 0 6px, transparent 6px 20px) 1;
+  z-index: -1;
+}
+
+.navShadow{
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+/* swiper */
+#testimonials .swiper-pagination-bullet-active,.customSwiper .swiper-pagination-bullet-active{
+  background-color: var(--text-primary);
+}
+.customSwiper .swiper-pagination-bullet,.customSwiper .swiper-pagination-bullets.swiper-pagination-horizontal{
+  bottom: -5px;
+}
+button:hover{
+  cursor: pointer;
+}
+
+/* @media (max-width: 768px) {
+  [data-aos] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+} */
+
+
+/* react quill */
+
+/* globals.css or quill.css */
+.quill-editor {
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.quill-editor .ql-container {
+  flex: 1;
+  height: 100% !important;
+  overflow-y: auto;
+}
+
+.quill-editor .ql-editor {
+  height: 100%;
+  overflow-y: auto;
+}
+
+
+/* for blog content */
+
+[data-aos] {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.aos-animate {
+  opacity: 1;
+}
+
+
+.editorContent h3{
+  color: var(--text-primary);
+  text-align: left;
+  font-size: 18px;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+.editorContent ul{
+  list-style-type: disc; 
+  padding-left: 30px;
+}
