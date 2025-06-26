@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import Pera from './Pera';
+import { useNavigate } from 'react-router-dom';
+
 
 const Form = ({ className = '', logo = false, animation }) => {
   const contactFormFields = [
@@ -33,6 +35,7 @@ const Form = ({ className = '', logo = false, animation }) => {
       rows: 1,
     },
   ];
+const navigate = useNavigate();
 
   const initialFormData = {
     name: '',
@@ -71,7 +74,8 @@ const Form = ({ className = '', logo = false, animation }) => {
       const data = await response.json();
 
       if (response.ok) {
-        alert(data.message);
+        // alert(data.message);
+        navigate("/thank-you");
         setFormData(initialFormData);
       } else {
         alert('Failed to send message: ' + data.message);

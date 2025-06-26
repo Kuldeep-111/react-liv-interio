@@ -19,6 +19,7 @@ import Login from "./pages/admin/login";
 import EditBlog from "./pages/admin/edit-blog";
 import AddBlog from "./pages/admin/add-blog";
 import NotFound from "./pages/NotFound";
+import ThankYou from "./pages/ThankYou";
 
 function App() {
   useEffect(() => {
@@ -52,6 +53,9 @@ function App() {
         <Route path="/admin/login" element={<Login />} />
         <Route path="/admin/edit-blog/:id" element={<EditBlog />} />
         <Route path="/admin/add-blog" element={<AddBlog />} />
+
+        {/* thank you page */}
+        <Route path="/thank-you" element={<ThankYou />} />
 
         {/* NotFound (no layout) */}
         <Route path="*" element={<NotFound />} />

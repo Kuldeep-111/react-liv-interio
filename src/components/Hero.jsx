@@ -36,13 +36,14 @@ const Hero = ({
       {video ? (
         <>
           {/* Always show fallback image as background */}
+        {isMobile && 
           <img
             src="/assets/banner-mb.webp"
             alt="Video Poster"
             className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-500 ${
               isVideoLoaded ? "opacity-0" : "opacity-100"
             }`}
-          />
+          />}
           
 
           {/* Video overlay */}
