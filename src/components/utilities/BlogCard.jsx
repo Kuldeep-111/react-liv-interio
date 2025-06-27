@@ -11,6 +11,12 @@ const BlogCard = ({ data, detailsPage }) => {
   const titleLimit = 8;
   const peraLimit = 30;
   const BASE_URL = "https://livinterio.com/api/"
+  const date = new Date(date_at);
+const formattedDate = `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1)
+  .toString()
+  .padStart(2, '0')}/${date.getFullYear()}`;
+
+console.log(formattedDate);
 
   
   // Limit title to 10 words
@@ -41,7 +47,7 @@ const BlogCard = ({ data, detailsPage }) => {
         {/* Title and Date Row */}
         <div className="flex justify-between items-center mb-3">
           <h3 data-aos="fade-right" className="bg-[var(--text-primary)] text-white rounded-[5px] py-[7px] px-[15px] text-[12px]">Interior Design</h3>
-          <span data-aos="fade-left" className="text-[12px] text-back">{date_at}</span>
+          <span data-aos="fade-left" className="text-[12px] text-back">{formattedDate}</span>
         </div>
          <Heading animation='fade-up' className='!text-left md:!text-[20px] my-[20px]'>{detailsPage ? heading : limitedTitle}</Heading>
         <Pera className='mb-[20px] !text-justify'>{detailsPage ? short_description : limitedDescription}</Pera>
